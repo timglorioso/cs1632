@@ -21,7 +21,15 @@
     </target>
 
     <target name="test">
-        <java classname="CoffeeMakerQuestTests" classpath="${build.dir}"/>
+        <java classname="org.junit.runner.JUnitCore">
+            <classpath>
+                <fileset dir="${lib.dir}">
+                    <include name="**/*.jar"/>
+                </fileset>
+                <pathelement path="${build.dir}"/>
+            </classpath>
+            <arg value="CoffeeMakerQuestTest"/>
+        </java>
     </target>
 
     <target name="run">
