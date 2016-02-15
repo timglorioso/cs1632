@@ -1,3 +1,5 @@
+import java.util.List;
+
 import org.junit.Test;
 import static org.junit.Assert.*;
 import static org.hamcrest.CoreMatchers.*;
@@ -9,10 +11,9 @@ public class CoffeeMakerQuestTest {
      * see requirement: FUN-ITERATION
      */
     @Test
-    public void testAcceptsValidCommand() {
+    public void testAcceptsValidCommands() {
         CoffeeMakerQuest testGame = new CoffeeMakerQuest();
-        String command = testGame.getNextCommand();
-        assertThat(command, anyOf(equalTo("N"), equalTo("S"), equalTo("L"),
-                                  equalTo("I"), equalTo("H"), equalTo("D")));
+        List<String> commands = testGame.getValidCommands();
+        assertThat(commands, hasItems("N", "S", "L", "I", "H", "D"));
     }
 }

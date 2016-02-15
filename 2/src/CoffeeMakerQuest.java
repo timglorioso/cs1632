@@ -1,17 +1,19 @@
+import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
 
 public class CoffeeMakerQuest {
 
-    private String nextCommand;
+    private List<String> validCommands;
 
     public CoffeeMakerQuest() {
-        nextCommand = "H";
+        validCommands = Arrays.asList("N", "S", "L", "I", "H", "D");
     }
 
     public static void main(String[] args) {
     }
 
-    public String getNextCommand() {
-        return nextCommand;
+    public List<String> getValidCommands() {
+        return validCommands;
     }
 }
