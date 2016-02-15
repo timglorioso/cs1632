@@ -16,4 +16,12 @@ public class CoffeeMakerQuest {
     public List<String> getValidCommands() {
         return validCommands;
     }
+
+    public String respondToCommand(String command) {
+        String response = new String();
+        if (!validCommands.contains(command)) {
+            response = "What?";
+        }
+        return response;
+    }
 }
