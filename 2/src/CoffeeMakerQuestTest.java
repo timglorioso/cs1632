@@ -1,4 +1,4 @@
-import java.util.List;
+import java.util.Arrays;
 
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -13,8 +13,9 @@ public class CoffeeMakerQuestTest {
     @Test
     public void testAcceptsValidCommands() {
         CoffeeMakerQuest testGame = new CoffeeMakerQuest();
-        List<String> commands = testGame.getValidCommands();
-        assertThat(commands, hasItems("N", "S", "L", "I", "H", "D"));
+        for (String command : Arrays.asList("N", "S", "L", "I", "H", "D")) {
+            assertNotEquals("What?", testGame.respondToCommand(command));
+        }
     }
 
     /*
