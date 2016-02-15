@@ -16,4 +16,14 @@ public class CoffeeMakerQuestTest {
         List<String> commands = testGame.getValidCommands();
         assertThat(commands, hasItems("N", "S", "L", "I", "H", "D"));
     }
+
+    /*
+     * see requirement: FUN-UNKNOWN-COMMAND
+     */
+    @Test
+    public void testRespondsToUnknownCommand() {
+        CoffeeMakerQuest testGame = new CoffeeMakerQuest();
+        String response = testGame.respondToCommand("A");
+        assertEquals("What?", response);
+    }
 }
