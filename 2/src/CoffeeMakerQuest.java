@@ -19,7 +19,7 @@ public class CoffeeMakerQuest {
 
     public String respondToCommand(String command) {
         String response = new String();
-        if (!validCommands.contains(command)) {
+        if (!validCommands.contains(command.toUpperCase())) {
             response = "What?";
         }
         return response;
