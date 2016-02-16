@@ -5,6 +5,10 @@ import static org.mockito.Mockito.*;
 
 public class CoffeeMakerQuestPlayerTest {
 
+    /*
+     * This test ensures that a player's empty inventory is correctly
+     * converted to a String.
+     */
     @Test
     public void testStringifiesEmptyInventory() {
         CoffeeMakerQuestPlayer testPlayer = new CoffeeMakerQuestPlayer();
@@ -12,6 +16,10 @@ public class CoffeeMakerQuestPlayerTest {
         assertEquals("nothing", inventoryString);
     }
 
+    /*
+     * This test ensures that a player's non-empty inventory is correctly
+     * converted to a String, where non-empty implies any number of items.
+     */
     @Test
     public void testStringifiesNonEmptyInventory() {
         CoffeeMakerQuestPlayer testPlayer = new CoffeeMakerQuestPlayer();

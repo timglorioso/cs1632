@@ -9,6 +9,9 @@ public class CoffeeMakerQuestTest {
 
     /*
      * see requirement: FUN-ITERATION
+     *
+     * This test ensures that every valid command will be recognized by the
+     * system.
      */
     @Test
     public void testAcceptsValidCommands() {
@@ -20,6 +23,9 @@ public class CoffeeMakerQuestTest {
 
     /*
      * see requirement: FUN-UNKNOWN-COMMAND
+     *
+     * This test ensures that an empty command (qualifies as "unknown") will
+     * result in the appropriate response, given by the above requirement.
      */
     @Test
     public void testRespondsToEmptyCommand() {
@@ -30,6 +36,9 @@ public class CoffeeMakerQuestTest {
 
     /*
      * see requirement: FUN-UNKNOWN-COMMAND
+     *
+     * This test ensures that a command with invalid characters will result in
+     * the appropriate response, given by the above requirement.
      */
     @Test
     public void testRespondsToInvalidCharactersCommand() {
@@ -37,9 +46,11 @@ public class CoffeeMakerQuestTest {
         String response = testGame.respondToCommand("5! {+");
         assertEquals("What?", response);
     }
- 
+
     /*
      * see requirement: FUN-INPUT-CAPS
+     *
+     * This test ensures that an uppercase command is accepted by the system.
      */
     @Test
     public void testAcceptsUpperCaseCommand() {
@@ -50,6 +61,8 @@ public class CoffeeMakerQuestTest {
 
     /*
      * see requirement: FUN-INPUT-CAPS
+     *
+     * This test ensures that a lowercase command is accepted by the system.
      */
     @Test
     public void testAcceptsLowerCaseCommand() {
@@ -60,6 +73,10 @@ public class CoffeeMakerQuestTest {
 
     /*
      * see requirement: FUN-INVENTORY
+     *
+     * This test ensures that player inventory is displayed given the "I"
+     * command. Inventory must contain specific elements corresponding to the
+     * valid ingredients given in the requirements.
      */
     @Test
     public void testDisplaysPlayerInventory() {
@@ -75,6 +92,9 @@ public class CoffeeMakerQuestTest {
 
     /*
      * see requirement: FUN-HELP
+     *
+     * This test ensures that a specific help message is displayed when the
+     * user enters the "H" command.
      */
     @Test
     public void testDisplaysHelpMessage() {

@@ -31,6 +31,15 @@ public class CoffeeMakerQuest {
     public static void main(String[] args) {
     }
 
+    /*
+     * tested by: testAcceptsValidCommands()
+     *            testRespondsToEmptyCommand()
+     *            testRespondsToInvalidCharactersCommand()
+     *            testAcceptsUpperCaseCommand()
+     *            testAcceptsLowerCaseCommand()
+     *            testDisplaysPlayerInventory()
+     *            testDisplaysHelpMessage()
+     */
     public String respondToCommand(String command) {
         String response = null;
         command = command.toUpperCase();
