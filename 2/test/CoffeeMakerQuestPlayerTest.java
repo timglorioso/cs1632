@@ -23,12 +23,13 @@ public class CoffeeMakerQuestPlayerTest {
     @Test
     public void testStringifiesNonEmptyInventory() {
         CoffeeMakerQuestPlayer testPlayer = new CoffeeMakerQuestPlayer();
-        testPlayer.addToInventory("cream");
-        testPlayer.addToInventory("sugar");
-        testPlayer.addToInventory("coffee");
+        String[] testItems = {"milk", "ice", "marshmallows"};
+        testPlayer.addToInventory(testItems[0]);
+        testPlayer.addToInventory(testItems[1]);
+        testPlayer.addToInventory(testItems[2]);
         String inventoryString = testPlayer.inventoryToString();
-        assertThat(inventoryString, anyOf(containsString("coffee"),
-                                          containsString("cream"),
-                                          containsString("sugar")));
+        assertThat(inventoryString, anyOf(containsString(testItems[0]),
+                                          containsString(testItems[1]),
+                                          containsString(testItems[2])));
     }
 }
