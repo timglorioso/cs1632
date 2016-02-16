@@ -57,4 +57,22 @@ public class CoffeeMakerQuestTest {
         String response = testGame.respondToCommand("h");
         assertNotEquals("What?", response);
     }
+
+    /*
+     * see requirement: FUN-HELP
+     */
+    @Test
+    public void testDisplaysHelpMessage() {
+        CoffeeMakerQuest testGame = new CoffeeMakerQuest();
+        String helpMessage = String.join(System.getProperty("line.separator"),
+            "The following single-character commands are at your disposal:",
+            "N - move north, if possible",
+            "S - move south, if possible",
+            "L - look around the room for ingredients to pick up",
+            "I - check your inventory",
+            "D - mix the ingredients in your inventory and drink the result",
+            "H - display this help message");
+        String response = testGame.respondToCommand("H");
+        assertEquals(helpMessage, response);
+    }
 }
