@@ -69,8 +69,8 @@ public class CoffeeMakerQuestTest {
             "N - move north, if possible",
             "S - move south, if possible",
             "L - look around the room for ingredients to pick up",
-            "I - check your inventory",
-            "D - mix the ingredients in your inventory and drink the result",
+            "I - check which ingredients you've added to your inventory",
+            "D - mix your ingredients and drink the result",
             "H - display this help message");
         String response = testGame.respondToCommand("H");
         assertEquals(helpMessage, response);
