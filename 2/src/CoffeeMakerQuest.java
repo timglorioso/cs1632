@@ -1,6 +1,5 @@
 import java.util.Arrays;
 import java.util.List;
-import java.util.Scanner;
 
 public class CoffeeMakerQuest {
 
@@ -11,10 +10,6 @@ public class CoffeeMakerQuest {
     }
 
     public static void main(String[] args) {
-    }
-
-    public List<String> getValidCommands() {
-        return validCommands;
     }
 
     public String respondToCommand(String command) {
