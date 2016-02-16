@@ -2,6 +2,7 @@
 <project name="project2" basedir="." default="main">
 
     <property name="src.dir" location="src"/>
+    <property name="test.dir" location="test"/>
     <property name="lib.dir" location="lib"/>
     <property name="build.dir" location="build"/>
 
@@ -11,7 +12,7 @@
 
     <target name="build" depends="clean">
         <mkdir dir="${build.dir}"/>
-        <javac srcdir="${src.dir}" destdir="${build.dir}" includeantruntime="false">
+        <javac srcdir="${src.dir}:${test.dir}" destdir="${build.dir}" includeantruntime="false">
             <classpath>
                 <fileset dir="${lib.dir}">
                     <include name="**/*.jar"/>
@@ -28,7 +29,7 @@
                 </fileset>
                 <pathelement path="${build.dir}"/>
             </classpath>
-            <arg value="CoffeeMakerQuestTest"/>
+            <arg value="CoffeeMakerQuestTestSuite"/>
         </java>
     </target>
 

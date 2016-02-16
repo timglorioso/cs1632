@@ -59,13 +59,28 @@ public class CoffeeMakerQuestTest {
     }
 
     /*
+     * see requirement: FUN-INVENTORY
+     */
+    @Test
+    public void testDisplaysPlayerInventory() {
+        CoffeeMakerQuest testGame = new CoffeeMakerQuest();
+        String response = testGame.respondToCommand("I");
+        assertThat(response,
+            both(org.hamcrest.CoreMatchers.startsWith("You have "))
+            .and(either(containsString("nothing"))
+                .or(anyOf(containsString("coffee"),
+                          containsString("cream"),
+                          containsString("sugar")))));
+    }
+
+    /*
      * see requirement: FUN-HELP
      */
     @Test
     public void testDisplaysHelpMessage() {
         CoffeeMakerQuest testGame = new CoffeeMakerQuest();
         String helpMessage = String.join(System.getProperty("line.separator"),
-            "The following single-character commands are at your disposal:",
+            "The following commands are at your disposal:",
             "N - move north, if possible",
             "S - move south, if possible",
             "L - look around the room for ingredients to pick up",
