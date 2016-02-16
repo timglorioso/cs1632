@@ -27,4 +27,24 @@ public class CoffeeMakerQuestTest {
         String response = testGame.respondToCommand("A");
         assertEquals("What?", response);
     }
+
+    /*
+     * see requirement: FUN-INPUT-CAPS
+     */
+    @Test
+    public void testAcceptsUpperCaseCommand() {
+        CoffeeMakerQuest testGame = new CoffeeMakerQuest();
+        String response = testGame.respondToCommand("H");
+        assertNotEquals("What?", response);
+    }
+
+    /*
+     * see requirement: FUN-INPUT-CAPS
+     */
+    @Test
+    public void testAcceptsLowerCaseCommand() {
+        CoffeeMakerQuest testGame = new CoffeeMakerQuest();
+        String response = testGame.respondToCommand("h");
+        assertNotEquals("What?", response);
+    }
 }
