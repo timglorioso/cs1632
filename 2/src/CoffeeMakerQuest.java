@@ -3,19 +3,21 @@ import java.util.List;
 
 public class CoffeeMakerQuest {
 
+    private CoffeeMakerQuestPlayer player;
     private List<String> validCommands;
-    private List<String> validCommandResponses;
-    private String unknownCommandResponse;
+    private List<String> responsesForValidCommands;
+    private String responseForUnknownCommand;
 
     public CoffeeMakerQuest() {
+        player = new CoffeeMakerQuestPlayer();
         validCommands = Arrays.asList("N", "S", "L", "I", "H", "D");
-        validCommandResponses = Arrays.asList(
+        responsesForValidCommands = Arrays.asList(
             "",
             "",
             "",
-            "",
+            "You have %s.",
             String.join(System.getProperty("line.separator"),
-                "The following single-character commands are at your disposal:",
+                "The following commands are at your disposal:",
                 "N - move north, if possible",
                 "S - move south, if possible",
                 "L - look around the room for ingredients to pick up",
@@ -23,7 +25,7 @@ public class CoffeeMakerQuest {
                 "D - mix your ingredients and drink the result",
                 "H - display this help message"),
             "");
-        unknownCommandResponse = "What?";
+        responseForUnknownCommand = "What?";
     }
 
     public static void main(String[] args) {
@@ -34,12 +36,20 @@ public class CoffeeMakerQuest {
         command = command.toUpperCase();
         for (int i = 0; i < validCommands.size(); i++) {
             if (validCommands.get(i).equals(command)) {
-                response = validCommandResponses.get(i);
+                response = responsesForValidCommands.get(i);
+                response = formatResponseForCommand(response, command);
                 break;
             }
         }
         if (response == null) {
-            response = unknownCommandResponse;
+            response = responseForUnknownCommand;
+        }
+        return response;
+    }
+
+    private String formatResponseForCommand(String response, String command) {
+        if ("I".equals(command)) {
+            response = String.format(response, player.inventoryToString());
         }
         return response;
     }
