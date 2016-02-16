@@ -22,12 +22,22 @@ public class CoffeeMakerQuestTest {
      * see requirement: FUN-UNKNOWN-COMMAND
      */
     @Test
-    public void testRespondsToUnknownCommand() {
+    public void testRespondsToEmptyCommand() {
         CoffeeMakerQuest testGame = new CoffeeMakerQuest();
-        String response = testGame.respondToCommand("A");
+        String response = testGame.respondToCommand("");
         assertEquals("What?", response);
     }
 
+    /*
+     * see requirement: FUN-UNKNOWN-COMMAND
+     */
+    @Test
+    public void testRespondsToInvalidCharactersCommand() {
+        CoffeeMakerQuest testGame = new CoffeeMakerQuest();
+        String response = testGame.respondToCommand("5! {+");
+        assertEquals("What?", response);
+    }
+ 
     /*
      * see requirement: FUN-INPUT-CAPS
      */
