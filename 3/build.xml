@@ -33,10 +33,6 @@
         </java>
     </target>
 
-    <!-- <target name="run">
-        <java classname="" classpath="${build.dir}"/>
-    </target> -->
-
-    <target name="main" depends="build,test,run"/>
+    <target name="main" depends="build,test"/>
 
 </project>
