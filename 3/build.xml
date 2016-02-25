@@ -1,0 +1,42 @@
+<!-- Software Quality Assurance, University of Pittsburgh, Tim Glorioso -->
+<project name="project3" basedir="." default="main">
+
+    <property name="src.dir" location="src"/>
+    <property name="test.dir" location="test"/>
+    <property name="lib.dir" location="lib"/>
+    <property name="build.dir" location="build"/>
+
+    <target name="clean">
+        <delete dir="${build.dir}"/>
+    </target>
+
+    <target name="build" depends="clean">
+        <mkdir dir="${build.dir}"/>
+        <javac srcdir="${src.dir}:${test.dir}" destdir="${build.dir}" includeantruntime="false">
+            <classpath>
+                <fileset dir="${lib.dir}">
+                    <include name="**/*.jar"/>
+                </fileset>
+            </classpath>
+        </javac>
+    </target>
+
+    <target name="test">
+        <java classname="org.junit.runner.JUnitCore">
+            <classpath>
+                <fileset dir="${lib.dir}">
+                    <include name="**/*.jar"/>
+                </fileset>
+                <pathelement path="${build.dir}"/>
+            </classpath>
+            <arg value="RedditTest"/>
+        </java>
+    </target>
+
+    <!-- <target name="run">
+        <java classname="" classpath="${build.dir}"/>
+    </target> -->
+
+    <target name="main" depends="build,test,run"/>
+
+</project>
