@@ -28,7 +28,7 @@
                 </fileset>
                 <pathelement path="${build.dir}"/>
             </classpath>
-            <arg value="RedditTest"/>
+            <arg value="RYMTestSuite"/>
         </java>
     </target>
 
