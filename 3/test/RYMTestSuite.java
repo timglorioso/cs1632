@@ -4,7 +4,8 @@ import org.junit.runners.Suite;
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
     RYMHomeTest.class,
-    RYMChartsTest.class
+    RYMChartsTest.class,
+    RYMListsTest.class
 })
 
 /* placeholder test suite class */
