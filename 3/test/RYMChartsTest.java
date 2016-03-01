@@ -1,5 +1,9 @@
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import static org.junit.Assert.*;
-import org.junit.Before;
+
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.openqa.selenium.*;
 import org.openqa.selenium.htmlunit.HtmlUnitDriver;
@@ -12,9 +16,14 @@ public class RYMChartsTest {
 
     static WebDriver driver = new HtmlUnitDriver();
 
-    @Before
-    public void setUp() throws Exception {
-        // driver.get("https://rateyourmusic.com/customchart");
+    @BeforeClass
+    public static void setUpOnce() {
+
+        // only GET once since all tests use non-destructive inspection
+        driver.get("https://rateyourmusic.com/customchart");
+
+        // turn off annoying warnings
+        Logger.getLogger("com.gargoylesoftware.htmlunit").setLevel(Level.OFF);
     }
 
     /* Given that I am on the charts page
@@ -23,14 +32,24 @@ public class RYMChartsTest {
     */
     @Test
     public void testShowsDefaultChart() {
+        WebElement chartType = driver.findElement(By.name("chart_type"));
+        WebElement type = driver.findElement(By.name("type"));
+        WebElement year = driver.findElement(By.name("year"));
+        boolean top = getOption(chartType, "Top").isSelected();
+        boolean albums = getOption(type, "albums").isSelected();
+        boolean allTime = getOption(year, "all-time").isSelected();
+        assertTrue(top && albums && allTime);
     }
 
-    /* Given that I am on the charts page
-     | when I view the chart control panel
-     | then I can select the chart type, release type, and year
-    */
-    @Test
-    public void testAcceptsBasicChartParameters() {
+    // helper method to find an option by its name (the inner text)
+    private WebElement getOption(WebElement parent, String name) {
+        By byOptionTag = By.tagName("option");
+        for (WebElement option : parent.findElements(byOptionTag)) {
+            if (option.getText().contains(name)) {
+                return option;
+            }
+        }
+        return null;
     }
 
     /* Given that I am on the charts page
@@ -39,6 +58,13 @@ public class RYMChartsTest {
     */
     @Test
     public void testCanShowReleasesSpecifiedGenre() {
+        try {
+            WebElement dropDown = driver.findElement(By.name("genre_include"));
+            WebElement textField = driver.findElement(By.id("genres"));
+            WebElement checkbox = driver.findElement(By.id("include_child_genres_chk"));
+        } catch (NoSuchElementException e) {
+            fail();
+        }
     }
 
     /* Given that I am on the charts page
@@ -47,6 +73,13 @@ public class RYMChartsTest {
     */
     @Test
     public void testCanShowArchivalAndLiveReleases() {
+        try {
+            WebElement dropDown = driver.findElement(By.id("include"));
+            WebElement cb1 = driver.findElement(By.id("include_archival"));
+            WebElement cb2 = driver.findElement(By.id("include_live"));
+        } catch (NoSuchElementException e) {
+            fail();
+        }
     }
 
     /* Given that I am on the charts page
@@ -55,13 +88,23 @@ public class RYMChartsTest {
     */
     @Test
     public void testCanShowReleasesFromSpecifiedCountry() {
+        try {
+            WebElement textField = driver.findElement(By.id("origin_countries"));
+        } catch (NoSuchElementException e) {
+            fail();
+        }
     }
 
     /* Given that I am on the charts page
      | when I view the chart control panel
-     | then I can specify a subset of users who've rated the shown releases
+     | then I can specify releases only rated by my friends
     */
     @Test
-    public void testCanShowReleasesRatedBySubsetOfUsers() {
+    public void testCanShowReleasesRatedByFriends() {
+        try {
+            WebElement radio = driver.findElement(By.id("limit_friends"));
+        } catch (NoSuchElementException e) {
+            fail();
+        }
     }
 }
