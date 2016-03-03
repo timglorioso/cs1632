@@ -1,5 +1,11 @@
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import static org.junit.Assert.*;
-import org.junit.Before;
+import static org.hamcrest.CoreMatchers.*;
+
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.openqa.selenium.*;
 import org.openqa.selenium.htmlunit.HtmlUnitDriver;
@@ -12,9 +18,14 @@ public class RYMCommunityTest {
 
     static WebDriver driver = new HtmlUnitDriver();
 
-    @Before
-    public void setUp() throws Exception {
-        // driver.get("https://rateyourmusic.com/community");
+    @BeforeClass
+    public static void setUpOnce() {
+
+        // only GET once since all tests use non-destructive inspection
+        driver.get("https://rateyourmusic.com/community");
+
+        // turn off annoying warnings
+        Logger.getLogger("com.gargoylesoftware.htmlunit").setLevel(Level.OFF);
     }
 
     /* Given that I am on the community page
@@ -23,6 +34,14 @@ public class RYMCommunityTest {
     */
     @Test
     public void testHasMusicBoard() {
+        try {
+            WebElement forums = getSection("Forums");
+            WebElement table = driver.findElement(By.className("mbgen"));
+            List<WebElement> boards = table.findElements(By.tagName("td"));
+            assertTrue(boards.get(0).getText().contains("Music"));
+        } catch (NoSuchElementException e) {
+            fail();
+        }
     }
 
     /* Given that I am on the community page
@@ -31,6 +50,13 @@ public class RYMCommunityTest {
     */
     @Test
     public void testHasMetaBoard() {
+        try {
+            WebElement forums = getSection("Forums");
+            WebElement table = driver.findElement(By.className("mbgen"));
+            assertTrue(table.getText().contains("Rate Your Music"));
+        } catch (NoSuchElementException e) {
+            fail();
+        }
     }
 
     /* Given that I am on the community page
@@ -39,6 +65,13 @@ public class RYMCommunityTest {
     */
     @Test
     public void testHasOffTopicBoard() {
+        try {
+            WebElement forums = getSection("Forums");
+            WebElement table = driver.findElement(By.className("mbgen"));
+            assertTrue(table.getText().contains("Off-Topic"));
+        } catch (NoSuchElementException e) {
+            fail();
+        }
     }
 
     /* Given that I am on the community page
@@ -47,6 +80,14 @@ public class RYMCommunityTest {
     */
     @Test
     public void testShowsOnlineMembersInfo() {
+        try {
+            WebElement online = getSection("Members online");
+            WebElement table = driver.findElement(By.id("membersOnline"));
+            WebElement headers = table.findElements(By.tagName("tr")).get(0);
+            assertThat(headers.getText(), allOf(containsString("Loc"), containsString("Username"), containsString("Listening to")));
+        } catch (NoSuchElementException e) {
+            fail();
+        }
     }
 
     /* Given that I am on the community page
@@ -55,6 +96,15 @@ public class RYMCommunityTest {
     */
     @Test
     public void testShowsSearchBarForMemberDirectory() {
+        try {
+            WebElement directory = getSection("Member directory");
+            WebElement form = driver.findElement(By.id("tempform"));
+            WebElement textField = form.findElement(By.name("searchterm"));
+            WebElement categories = form.findElement(By.name("subcategory"));
+            assertThat(categories.getText(), allOf(containsString("Username"), containsString("Name"), containsString("Location"), containsString("Profile Description")));
+        } catch (NoSuchElementException e) {
+            fail();
+        }
     }
 
     /* Given that I am on the community page
@@ -63,5 +113,24 @@ public class RYMCommunityTest {
     */
     @Test
     public void testShowsNewMembersWithInfo() {
+        try {
+            WebElement newMembers = getSection("Newest Members");
+            WebElement table = driver.findElement(By.id("newestUsers"));
+            WebElement headers = table.findElements(By.tagName("tr")).get(0);
+            assertThat(headers.getText(), allOf(containsString("Username"), containsString("Name"), containsString("Age/Sex"), containsString("Country")));
+        } catch (NoSuchElementException e) {
+            fail();
+        }
+    }
+
+    // helper method to find a section by its name (the inner text)
+    private WebElement getSection(String name) {
+        By bySectionTag = By.tagName("h4");
+        for (WebElement section : driver.findElements(bySectionTag)) {
+            if (section.getText().contains(name)) {
+                return section;
+            }
+        }
+        return null;
     }
 }
