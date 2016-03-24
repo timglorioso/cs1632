@@ -1,3 +1,4 @@
+import java.util.Arrays;
 import java.util.Random;
 import java.util.stream.IntStream;
 
@@ -29,6 +30,43 @@ public class SortTest {
     }
 
     @Test
-    public void doNothing() {
+    public void testSameSortedArraySize() {
+        int sizeBeforeSort;
+        int sizeAfterSort;
+
+        for (int i = 0; i < arraysOfNumbers.length; i++) {
+            sizeBeforeSort = arraysOfNumbers[i].length;
+            Arrays.sort(arraysOfNumbers[i]);
+            sizeAfterSort = arraysOfNumbers[i].length;
+            assertEquals(sizeBeforeSort, sizeAfterSort);
+        }
+    }
+
+    @Test
+    public void testSortedValuesAlwaysIncreasing() {
+
+        for (int i = 0; i < arraysOfNumbers.length; i++) {
+            Arrays.sort(arraysOfNumbers[i]);
+
+            for (int j = 0; j < arraysOfNumbers[i].length - 1; j++) {
+                assertTrue(arraysOfNumbers[i][j] <= arraysOfNumbers[i][j + 1]);
+            }
+        }
+    }
+
+    @Test
+    public void testIdempotency() {
+        int[] arraySortedOnce;
+
+        for (int i = 0; i < arraysOfNumbers.length; i++) {
+            Arrays.sort(arraysOfNumbers[i]);
+            arraySortedOnce = Arrays.copyOf(arraysOfNumbers[i],
+                arraysOfNumbers[i].length);
+            Arrays.sort(arraysOfNumbers[i]);
+
+            for (int j = 0; j < arraysOfNumbers[i].length; j++) {
+                assertEquals(arraySortedOnce[j], arraysOfNumbers[i][j]);
+            }
+        }
     }
 }
